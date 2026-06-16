@@ -1,0 +1,41 @@
+{
+  "name": "panda/wp-members-pay",
+  "version": "1.0.0",
+  "description": "WordPress plugin ",
+  "type": "wordpress-plugin",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Panda\\WpMembersPay\\": "includes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+        "Panda\\WpMembersPay\\Tests\\": "tests/"
+    }
+},
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "infection/extension-installer": true
+    }
+  },
+  "require-dev": {
+    "brain/monkey": "^2.6",
+    "infection/infection": "^0.32.6",
+    "mockery/mockery": "^1.6",
+    "php-stubs/wordpress-stubs": "^6.9",
+    "php-stubs/wp-cli-stubs": "^2.12",
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^9.6.33",
+    "szepeviktor/phpstan-wordpress": "^2.0"
+  },
+            "scripts": {
+        "test": "php vendor/phpunit/phpunit/phpunit --configuration phpunit.xml.dist",
+        "test:unit": "phpunit --configuration phpunit.unit.xml.dist",
+        "test:wp": "phpunit --configuration phpunit.wp.xml.dist",
+        "analyse": "php vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G",
+        "coverage": "vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-text"
+        }
+}
