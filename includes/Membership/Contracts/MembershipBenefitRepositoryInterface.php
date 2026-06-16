@@ -6,7 +6,7 @@ namespace Panda\WpMembersPay\Membership\Contracts;
 
 use Panda\WpMembersPay\Membership\DTO\MembershipBenefitDto;
 
-interface RepositoryInterMembershipBenefitRface
+interface MembershipBenefitRepositoryInterface
 {
     public function findById(int $id): ?MembershipBenefitDto;
 
