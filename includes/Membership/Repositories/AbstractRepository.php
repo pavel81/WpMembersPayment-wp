@@ -97,4 +97,31 @@ abstract class AbstractRepository
             ARRAY_A
         );
     }
+    /**
+ * @return array<int,array<string,mixed>>
+ */
+protected function findBy(
+    string $where,
+    array $params = [],
+    string $orderBy = 'id ASC'
+): array {
+    $sql = sprintf(
+        'SELECT * FROM %s WHERE %s ORDER BY %s',
+        $this->getTableName(),
+        $where,
+        $orderBy
+    );
+
+    if ($params !== []) {
+        $sql = $this->wpdb->prepare(
+            $sql,
+            ...$params
+        );
+    }
+
+    return $this->wpdb->get_results(
+        $sql,
+        ARRAY_A
+    );
+}
 }
