@@ -126,4 +126,19 @@ final class MembershipPaymentRepository extends AbstractRepository implements Me
                 : null,
         );
     }
+    
+ /**
+ * @return MembershipPaymentDto[]
+ */
+public function findAll(): array
+{
+    $rows = $this->findAllRows(
+        'id DESC'
+    );
+
+    return array_map(
+        fn(array $row): MembershipPaymentDto => $this->mapRowToDto($row),
+        $rows
+    );
+}
 }

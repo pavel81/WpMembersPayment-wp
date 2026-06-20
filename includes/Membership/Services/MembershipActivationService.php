@@ -14,6 +14,11 @@ final class MembershipActivationService
         private readonly MembershipEventService $eventService,
     ) {
     }
+    
+    do_action(
+    'pwmp_membership_activated',
+    $membership
+);
 
     public function activateMembership(
         int $userId,

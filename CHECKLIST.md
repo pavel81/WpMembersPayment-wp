@@ -1,253 +1,122 @@
-# WP Members Pay – Checklist vývoje
+# Aktualizace checklistu
 
-## Fáze 1 – Základ projektu
-
-* [x] Inicializace Git repozitáøe
-* [x] Composer konfigurace
-* [x] PSR-4 autoload
-* [x] PHPUnit
-* [x] PHPStan
-* [x] Brain Monkey
-* [x] Mockery
-* [x] Infection
-* [x] Composer audit bez bezpeènostních nálezù
-
----
-
-## Fáze 2 – Databázová vrstva
-
-### Contracts
-
-* [x] TableInterface.php
-
-### Tables
-
-* [x] MembershipPlansTable.php
-* [x] MembershipsTable.php
-* [x] MembershipBenefitsTable.php
-* [x] MembershipPaymentsTable.php
-* [x] MembershipEventsTable.php
-
-### Database
-
-* [x] DatabaseVersion.php
-* [x] SchemaManager.php
+## FÃ¡ze 2 â€“ DatabÃ¡zovÃ¡ vrstva
 
 ### Instalace
 
-* [ ] Activation Hook
-* [ ] SchemaManager::install()
+* [x] Activation Hook
+* [x] SchemaManager::install()
 * [ ] SchemaManager::maybeUpgrade()
 * [ ] DB version upgrade test
 
 ---
 
-## Fáze 3 – DTO
-
-### Membership
-
-* [x] MembershipPlanDto.php
-* [x] MembershipDto.php
-* [x] MembershipBenefitDto.php
-* [x] MembershipPaymentDto.php
-* [x] MembershipEventDto.php
-
----
-
-## Fáze 4 – Value Objects
-
-* [x] MembershipStatus.php
-* [x] PaymentStatus.php
-
----
-
-## Fáze 5 – Repository Contracts
-
-* [x] MembershipPlanRepositoryInterface.php
-* [x] MembershipRepositoryInterface.php
-* [x] MembershipBenefitRepositoryInterface.php
-* [x] MembershipPaymentRepositoryInterface.php
-* [x] MembershipEventRepositoryInterface.php
-
----
-
-## Fáze 6 – Repository Layer
-
-### Base
-
-* [x] AbstractRepository.php
+## FÃ¡ze 6 â€“ Repository Layer
 
 ### Implementace
 
 * [x] MembershipPlanRepository.php
-* [ ] MembershipRepository.php
-* [ ] MembershipBenefitRepository.php
-* [ ] MembershipPaymentRepository.php
-* [ ] MembershipEventRepository.php
-
-### Repository Tests
-
-* [ ] MembershipPlanRepositoryTest.php
-* [ ] MembershipRepositoryTest.php
-* [ ] MembershipBenefitRepositoryTest.php
-* [ ] MembershipPaymentRepositoryTest.php
-* [ ] MembershipEventRepositoryTest.php
+* [x] MembershipRepository.php
+* [x] MembershipBenefitRepository.php
+* [x] MembershipPaymentRepository.php
+* [x] MembershipEventRepository.php
 
 ---
 
-## Fáze 7 – Service Layer
+## FÃ¡ze 7 â€“ Service Layer
 
 ### Core Services
 
-* [ ] MembershipPlanService.php
-* [ ] MembershipService.php
-* [ ] MembershipBenefitService.php
-* [ ] MembershipPaymentService.php
-* [ ] MembershipEventService.php
+* [x] MembershipPlanService.php
+* [x] MembershipService.php
+* [x] MembershipBenefitService.php
+* [x] MembershipPaymentService.php
+* [x] MembershipEventService.php
 
 ### Business Services
 
-* [ ] MembershipActivationService.php
-* [ ] MembershipRenewalService.php
-* [ ] MembershipExpirationService.php
-* [ ] MembershipCancellationService.php
-
-### Service Tests
-
-* [ ] MembershipPlanServiceTest.php
-* [ ] MembershipServiceTest.php
-* [ ] MembershipBenefitServiceTest.php
-* [ ] MembershipPaymentServiceTest.php
-* [ ] MembershipEventServiceTest.php
+* [x] MembershipActivationService.php
+* [x] MembershipRenewalService.php
+* [x] MembershipExpirationService.php
+* [x] MembershipCancellationService.php
 
 ---
 
-## Fáze 8 – Event System
+## NovÃ¡ FÃ¡ze 7A â€“ Dependency Injection
 
-* [ ] Event recording
-* [ ] Event payload serializer
-* [ ] Event history retrieval
-* [ ] Event audit trail
-* [ ] Event unit tests
-
----
-
-## Fáze 9 – WP Cron
-
-* [ ] Membership expiration cron
-* [ ] Renewal reminders
-* [ ] Failed payment retry scheduler
-* [ ] Cron tests
+* [x] ServiceContainer.php
+* [x] MembershipServiceProvider.php
+* [x] AdminServiceProvider.php
+* [ ] Integration providers
+* [ ] Service container tests
 
 ---
 
-## Fáze 10 – Admin
+## FÃ¡ze 10 â€“ Admin
 
 ### Screens
 
-* [ ] PlansScreen.php
-* [ ] MembershipsScreen.php
-* [ ] PaymentsScreen.php
-* [ ] EventsScreen.php
+* [x] PlansScreen.php
+* [x] MembershipsScreen.php
+* [x] PaymentsScreen.php
+* [x] EventsScreen.php
 
 ### ViewModels
 
-* [ ] PlansViewModel.php
-* [ ] MembershipsViewModel.php
-* [ ] PaymentsViewModel.php
-* [ ] EventsViewModel.php
+* [x] PlansViewModel.php
+* [x] MembershipsViewModel.php
+* [x] PaymentsViewModel.php
+* [x] EventsViewModel.php
 
 ### Renderers
 
-* [ ] PlansRenderer.php
-* [ ] MembershipsRenderer.php
-* [ ] PaymentsRenderer.php
-* [ ] EventsRenderer.php
+* [x] PlansRenderer.php
+* [x] MembershipsRenderer.php
+* [x] PaymentsRenderer.php
+* [x] EventsRenderer.php
 
 ### Templates
 
-* [ ] plans.php
-* [ ] memberships.php
-* [ ] payments.php
-* [ ] events.php
+* [x] plans-list.php
+* [x] memberships-list.php
+* [x] payments-list.php
+* [x] events-list.php
+
+### Menu
+
+* [x] AdminMenu.php
 
 ---
 
-## Fáze 11 – Membership Features
+## NovÃ¡ FÃ¡ze 10A â€“ Localization
 
-### Plans
-
-* [ ] Create plan
-* [ ] Edit plan
-* [ ] Disable plan
-* [ ] Sort plans
-
-### Memberships
-
-* [ ] Create membership
-* [ ] Renew membership
-* [ ] Cancel membership
-* [ ] Suspend membership
-* [ ] Expire membership
-
-### Benefits
-
-* [ ] Assign benefits
-* [ ] Remove benefits
-* [ ] Benefit lookup
+* [x] load_plugin_textdomain()
+* [x] Text domain registration
+* [x] languages directory
+* [x] Localization bootstrap
+* [ ] POT generation
+* [ ] Translation switcher
+* [ ] Locale resolver
 
 ---
 
-## Fáze 12 – Payments
+## NovÃ¡ FÃ¡ze 10B â€“ Integrations
 
-### Core
-
-* [ ] Payment creation
-* [ ] Payment confirmation
-* [ ] Payment refund
-* [ ] Payment audit
-
-### Gateways
-
-* [ ] Gateway abstraction
-* [ ] Stripe adapter
-* [ ] Comgate adapter
-* [ ] GoPay adapter
+* [x] pwmp_integrations_loaded hook
+* [x] Integration architecture foundation
+* [ ] Google Sheets addon
+* [ ] Translator addon
+* [ ] CRM addon
+* [ ] Webhook addon
 
 ---
 
-## Fáze 13 – API
+## NovÃ¡ FÃ¡ze 10C â€“ Bootstrap
 
-### Endpoints
-
-* [ ] GET /membership/plans
-* [ ] GET /membership/current
-* [ ] GET /membership/history
-* [ ] POST /membership/purchase
-* [ ] POST /membership/cancel
-
-### API Tests
-
-* [ ] Membership API tests
-* [ ] Authentication tests
-
----
-
-## Fáze 14 – Quality
-
-* [ ] PHPStan level max
-* [ ] PHPUnit coverage
-* [ ] Brain Monkey coverage
-* [ ] Infection mutation testing
-* [ ] GitHub Actions CI
-
----
-
-## Fáze 15 – Release 1.0
-
-* [ ] Documentation
-* [ ] Upgrade guide
-* [ ] Changelog
-* [ ] Release tag
-* [ ] Production validation
+* [x] PWMP_VERSION
+* [x] PWMP_PATH
+* [x] PWMP_URL
+* [x] PWMP_FILE
+* [x] Bootstrap initialization
+* [ ] Bootstrap tests
 

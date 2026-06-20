@@ -13,6 +13,11 @@ interface MembershipEventRepositoryInterface
     /**
      * @return MembershipEventDto[]
      */
+    public function findAll(): array;
+
+    /**
+     * @return MembershipEventDto[]
+     */
     public function findByMembershipId(
         int $membershipId
     ): array;

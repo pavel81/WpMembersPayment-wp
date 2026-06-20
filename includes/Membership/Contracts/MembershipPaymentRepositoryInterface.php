@@ -28,4 +28,11 @@ interface MembershipPaymentRepositoryInterface
     public function delete(
         int $id
     ): bool;
+
+/**
+ * @return MembershipPaymentDto[]
+ */
+public function findAll(): array;
+{
+}
 }

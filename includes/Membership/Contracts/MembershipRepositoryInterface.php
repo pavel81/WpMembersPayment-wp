@@ -10,6 +10,11 @@ interface MembershipRepositoryInterface
 {
     public function findById(int $id): ?MembershipDto;
 
+    /**
+     * @return MembershipDto[]
+     */
+    public function findAll(): array;
+
     public function findActiveByUserId(int $userId): ?MembershipDto;
 
     /**

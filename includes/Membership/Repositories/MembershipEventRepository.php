@@ -98,4 +98,18 @@ final class MembershipEventRepository extends AbstractRepository implements Memb
                 : null,
         );
     }
+/**
+ * @return MembershipEventDto[]
+ */
+public function findAll(): array
+{
+    $rows = $this->findAllRows(
+        'id DESC'
+    );
+
+    return array_map(
+        fn(array $row): MembershipEventDto => $this->mapRowToDto($row),
+        $rows
+    );
+}
 }

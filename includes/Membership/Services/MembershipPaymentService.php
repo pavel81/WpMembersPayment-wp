@@ -14,6 +14,11 @@ final class MembershipPaymentService
     ) {
     }
 
+
+do_action(
+    'pwmp_payment_completed',
+    $payment
+);
     public function findById(
         int $id
     ): ?MembershipPaymentDto {
@@ -56,4 +61,12 @@ final class MembershipPaymentService
             $id
         );
     }
+    
+    /**
+ * @return MembershipPaymentDto[]
+ */
+public function findAll(): array
+{
+    return $this->repository->findAll();
+}
 }

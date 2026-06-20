@@ -62,4 +62,12 @@ final class MembershipEventService
             $id
         );
     }
+    
+/**
+ * @return MembershipEventDto[]
+ */
+public function findAll(): array
+{
+    return $this->repository->findAll();
+}
 }

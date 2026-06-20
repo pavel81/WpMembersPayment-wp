@@ -122,4 +122,18 @@ final class MembershipRepository extends AbstractRepository implements Membershi
                 : null,
         );
     }
+/**
+ * @return MembershipDto[]
+ */
+public function findAll(): array
+{
+    $rows = $this->findAllRows(
+        'id DESC'
+    );
+
+    return array_map(
+        fn(array $row): MembershipDto => $this->mapRowToDto($row),
+        $rows
+    );
+}
 }
