@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Panda\WpMembersPay\Membership\Services;
 
 use Panda\WpMembersPay\Membership\DTO\MembershipDto;
+use Panda\WpMembersPay\Membership\ValueObjects\MembershipEventType;
 
 final class MembershipCancellationService
 {
@@ -13,11 +14,6 @@ final class MembershipCancellationService
         private readonly MembershipEventService $eventService,
     ) {
     }
-
-do_action(
-    'pwmp_membership_cancelled',
-    $membership
-);
 
     public function cancelMembership(
         int $membershipId
@@ -37,7 +33,9 @@ do_action(
             status: 'cancelled',
             startedAt: $membership->startedAt,
             expiresAt: $membership->expiresAt,
-            cancelledAt: current_time('mysql'),
+            cancelledAt: current_time(
+                'mysql'
+            ),
             externalReference: $membership->externalReference,
         );
 
@@ -45,14 +43,27 @@ do_action(
             $cancelledMembership
         );
 
-        $this->eventService->create(
-            $membershipId,
-            'membership_cancelled',
-            null
-        );
+        $this->eventService->record(
+    $membershipId,
+    MembershipEventType::CANCELLED,
+    [
+        'user_id'    => $membership->userId,
+        'plan_id'    => $membership->planId,
+        'expires_at' => $expiresAt,
+    ]
+);
 
-        return $this->membershipService->findById(
+        $savedMembership = $this->membershipService->findById(
             $membershipId
         );
+
+        if ($savedMembership !== null) {
+            do_action(
+                'pwmp_membership_cancelled',
+                $savedMembership
+            );
+        }
+
+        return $savedMembership;
     }
 }

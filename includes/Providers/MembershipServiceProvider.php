@@ -28,10 +28,22 @@ final class MembershipServiceProvider
         wpdb $wpdb
     ): void {
         $planRepository = new MembershipPlanRepository($wpdb);
-        $membershipRepository = new MembershipRepository($wpdb);
-        $benefitRepository = new MembershipBenefitRepository($wpdb);
-        $paymentRepository = new MembershipPaymentRepository($wpdb);
-        $eventRepository = new MembershipEventRepository($wpdb);
+
+        $membershipRepository = new MembershipRepository(
+            $wpdb
+        );
+
+        $benefitRepository = new MembershipBenefitRepository(
+            $wpdb
+        );
+
+        $paymentRepository = new MembershipPaymentRepository(
+            $wpdb
+        );
+
+        $eventRepository = new MembershipEventRepository(
+            $wpdb
+        );
 
         $planService = new MembershipPlanService(
             $planRepository
@@ -45,12 +57,13 @@ final class MembershipServiceProvider
             $benefitRepository
         );
 
-        $paymentService = new MembershipPaymentService(
-            $paymentRepository
-        );
-
         $eventService = new MembershipEventService(
             $eventRepository
+        );
+
+        $paymentService = new MembershipPaymentService(
+            $paymentRepository,
+            $eventService
         );
 
         $container->set(
@@ -104,14 +117,13 @@ final class MembershipServiceProvider
             )
         );
 
-                  $container->set(
+        $container->set(
             MembershipCancellationService::class,
             new MembershipCancellationService(
                 $membershipService,
                 $eventService
             )
         );
-        
 
         /**
          * Fired after all core services are registered.
@@ -125,22 +137,5 @@ final class MembershipServiceProvider
             'pwmp_integrations_loaded',
             $container
         );
-        
-        
-                /**
-         * Fired after all core services are registered.
-         *
-         * Allows addons and integrations to register
-         * additional services and hooks.
-         *
-         * @param ServiceContainer $container
-         */
-        do_action(
-            'pwmp_integrations_loaded',
-            $container
-        );
     }
 }
-    
-
-

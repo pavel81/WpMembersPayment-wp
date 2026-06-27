@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Panda\WpMembersPay\Membership\Services;
 
 use Panda\WpMembersPay\Membership\DTO\MembershipDto;
+use Panda\WpMembersPay\Membership\ValueObjects\MembershipEventType;
 
 final class MembershipActivationService
 {
@@ -14,17 +15,14 @@ final class MembershipActivationService
         private readonly MembershipEventService $eventService,
     ) {
     }
-    
-    do_action(
-    'pwmp_membership_activated',
-    $membership
-);
 
     public function activateMembership(
         int $userId,
         int $planId
     ): MembershipDto {
-        $plan = $this->planService->findById($planId);
+        $plan = $this->planService->findById(
+            $planId
+        );
 
         if ($plan === null) {
             throw new \RuntimeException(
@@ -35,7 +33,9 @@ final class MembershipActivationService
             );
         }
 
-        $startedAt = current_time('mysql');
+        $startedAt = current_time(
+            'mysql'
+        );
 
         $expiresAt = gmdate(
             'Y-m-d H:i:s',
@@ -72,13 +72,19 @@ final class MembershipActivationService
             );
         }
 
-        $this->eventService->create(
-            $membershipId,
-            'membership_activated',
-            wp_json_encode([
-                'user_id' => $userId,
-                'plan_id' => $planId,
-            ])
+        $this->eventService->record(
+    $membershipId,
+    MembershipEventType::ACTIVATION,
+    [
+        'user_id'    => $membership->userId,
+        'plan_id'    => $membership->planId,
+        'expires_at' => $expiresAt,
+    ]
+);
+
+        do_action(
+            'pwmp_membership_activated',
+            $savedMembership
         );
 
         return $savedMembership;

@@ -46,6 +46,22 @@ final class MembershipEventService
             )
         );
     }
+public function record(
+    int $membershipId,
+    string $eventType,
+    array $payload = []
+): int {
+    return $this->create(
+        $membershipId,
+        $eventType,
+        wp_json_encode(
+            $payload,
+            JSON_UNESCAPED_UNICODE
+            | JSON_UNESCAPED_SLASHES
+        )
+    );
+}
+
 
     public function save(
         MembershipEventDto $event

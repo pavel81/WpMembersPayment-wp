@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Panda\WpMembersPay\Membership\Services;
 
 use Panda\WpMembersPay\Membership\DTO\MembershipDto;
+use Panda\WpMembersPay\Membership\ValueObjects\MembershipEventType;
 
 final class MembershipExpirationService
 {
@@ -44,11 +45,15 @@ final class MembershipExpirationService
             $expiredMembership
         );
 
-        $this->eventService->create(
-            $membershipId,
-            'membership_expired',
-            null
-        );
+        $this->eventService->record(
+    $membershipId,
+    MembershipEventType::EXPIRE,
+    [
+        'user_id'    => $membership->userId,
+        'plan_id'    => $membership->planId,
+        'expires_at' => $expiresAt,
+    ]
+);
 
         return $this->membershipService->findById(
             $membershipId
